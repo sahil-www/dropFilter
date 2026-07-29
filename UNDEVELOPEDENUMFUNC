@@ -1,0 +1,49 @@
+
+// ======== NEW ENUM FUNC FOR MULTIPLE BOTS ========
+
+// ✅ Step 1: Define the Enum
+// Use explicit numeric values so mapping is predictable.
+export enum BotType {
+    Karuta = 1,
+    OwO = 2,
+}
+
+// ✅ Step 2: Define Handler Functions
+function karutaFunc(): boolean {
+    console.log("Running Karuta");
+    return false; // or true when condition met
+}
+
+function owoFunc(): boolean {
+    console.log("Running OwO");
+    return true;
+}
+
+// ✅ Step 3: Create the Action Handler Map
+// Use Record<Enum, Function> for type safety.
+const actionHandler: Record<BotType, () => boolean> = {
+    [BotType.Karuta]: karutaFunc,
+    [BotType.OwO]: owoFunc,
+};
+
+// ✅ Step 4: Define Execution Order (Array of Enum Values)
+const executionOrder: BotType[] = [
+    BotType.Karuta,
+    BotType.OwO,
+];
+
+// ✅ Step 5: Main Runner Logic
+// Stop when a function returns true.
+function runActions(): void {
+    for (const bot of executionOrder) {
+        const result = actionHandler[bot]();
+
+        if (result) {
+            console.log(`Stopped at ${BotType[bot]}`);
+            break;
+        }
+    }
+}
+
+// ✅ Step 6: Run It
+// runActions();
